@@ -1,0 +1,16 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ myclubuser }}</h5>
+      <h6 class="card-text mb-2 text-body-secondary"> {{ myclubuser.first_name}}</h6>
+      <br>
+      <p class="card-subtitle">Email Address: {{ myclubuser.email }}</p>
+    </div>
+  </div>
+    <br><br>
+{% endblock%}

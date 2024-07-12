@@ -1,0 +1,52 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+<center>
+  <h1>Events</h1>
+</center>
+
+<br>
+<!--pass all event list-->
+<ul>
+    {% for event in event_list %}
+  <!--only show the approved event-->
+    {% if event.approved %}
+    <div class="card">
+        <div class="card-header">
+        <strong>Status : {{ event.Is_Past }}</strong> <br>
+        <strong>Date : {{ event.event_date }}</strong> <br>
+        <strong>Days Till the Event : {{ event.Days_till }}</strong>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ event }}</h5>
+          <p class="card-text">Venue: {{ event.venue }}</p>
+          <p class="card-text">Manager: {{ event.manager }}</p>
+          <p class="card-text">Venue link: {{ event.venue.web }}</p>
+          <p class="card-text">{{ event.description }}</p>
+          <p class="card-text">Approved: {{ event.approved }}</p>
+          <!--.all becsause it is manytomany that is connected to other models-->
+          <p class="card-text">Attendees: 
+            <br>
+            <ol>{% for user in event.attendies.all %}
+            <li>{{ user }}</li>
+            {% endfor %}</ol></p>
+        </div>
+        {% if user.is_authenticated %}
+          {% if user == event.manager %}
+        <div class="card-footer text-body-secondary">
+          <a href="{% url 'edit_event' event.id %}" class="btn btn-primary">Edit Event</a>
+          <a href="{% url 'delete_event' event.id %}" class="btn btn-danger">Delete Event</a>
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+      <br>
+      {% endif %}
+    {% endfor %}
+</ul>
+
+
+
+{% endblock%}

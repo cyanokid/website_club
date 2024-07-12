@@ -1,0 +1,22 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+<center>
+    <h1>Edit Venue</h1>
+    <br><br>
+
+
+ <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+
+       {{ form.as_p }}
+
+        <br>
+        <input type="submit" value="Save" class="btn btn-outline-success">
+    </form>
+
+</center>
+
+{% endblock%}

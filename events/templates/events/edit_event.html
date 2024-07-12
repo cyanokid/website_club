@@ -1,0 +1,39 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+{% if user == event.manager %}
+<center>
+    <h1>Edit Event to Database </h1>
+</center>
+    <br><br>
+    {% if submitted %}
+    <center>
+        Your Event Was Updated Successfully!!!
+    </center>
+  
+    {% else %}
+   
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <br>
+        <input type="submit" value="Save" class="btn btn-outline-success">
+    </form>
+    {% endif %}
+
+    <br><br><br>
+{% else %}
+    <center>
+        <h1>Access Denied. </h1>
+        <p>You Are Not Authorised to Edit the Event.</p>
+    </center>
+{% endif %}
+<center>
+    Copyright (c) {{ current_year }}
+</center>
+
+{% endblock%}

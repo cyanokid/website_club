@@ -1,0 +1,30 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+<center>
+    <h1>Hello {{ me }}! Events in {{ month }} {{ year }} </h1>
+    <br>
+    <p> As for {{ time }}</p>
+
+    {{ cal | safe }}
+
+    <br><br><br>
+
+    <h3>Events in This Month... </h3> <br>
+
+    {% if event_list %}
+        {% for event in event_list %}
+            <li><a href="{% url 'show_event' event.id %}">{{ event }} - {{ event.event_date }}</a></li>
+        {% endfor %}
+    {% else %}
+        Sorry, there are no event this month.
+    {% endif %}
+
+    <br><br><br>
+
+
+</center>
+
+{% endblock%}

@@ -1,0 +1,27 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+<center>
+    <h1>Add Member of Club </h1>
+    <br><br>
+    {% if submitted %}
+    Add Member Was Submitted Successfully!!!
+    {% else %}
+   
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <br>
+        <input type="submit" value="Submit" class="btn btn-outline-success">
+    </form>
+    {% endif %}
+
+    <br><br><br>
+
+    Copyright (c) {{ current_year }}
+</center>
+
+{% endblock%}

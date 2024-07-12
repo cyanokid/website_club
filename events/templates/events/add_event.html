@@ -1,0 +1,38 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<center>
+    <h1>Add Event to Database </h1>
+</center>
+    <br><br>
+    {% if submitted %}
+    <center>
+        Your Event Was Submitted Successfully!!!
+    </center>
+  
+    {% else %}
+   
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <br>
+        <input type="submit" value="Submit" class="btn btn-outline-success">
+    </form>
+    {% endif %}
+
+    <br><br><br>
+    {% else %}
+    <h1>
+        Sorry! You Must Be Logged In to View This Page
+    </h1>
+
+    <a href="{% url 'login' %}">Login Here</a>
+
+    {% endif %} 
+
+{% endblock%}

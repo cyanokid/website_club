@@ -1,0 +1,59 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+<form class="d-flex" role="search" method="POST" action="{% url 'search_events' %}">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search Event" aria-label="Search" name="searched">
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </form>
+  <br><br>
+
+   {% if searched %}
+   <center>
+    <h1>You searched for {{ searched }}</h1>
+   </center>
+       
+        <br><br>
+
+        {% for event in events %}
+        <div class="card">
+            <div class="card-header">
+            <strong>Date: {{ event.event_date }}</strong>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ event }}</h5>
+              <p class="card-text">Venue: {{ event.venue }}</p>
+              <p class="card-text">Manager: {{ event.manager }}</p>
+              <p class="card-text">Venue link: {{ event.venue.web }}</p>
+              <p class="card-text">{{ event.description }}</p>
+              <!--.all becsause it is manytomany that is connected to other models-->
+              <p class="card-text">Attendees: 
+                <br>
+                <ol>{% for user in event.attendies.all %}
+                <li>{{ user }}</li>
+                    {% endfor %}</ol></p>
+            </div>
+            {% if user.is_authenticated %}
+                {% if user == event.manager %}
+                <div class="card-footer text-body-secondary">
+                <a href="{% url 'edit_event' event.id %}" class="btn btn-primary">Edit Event</a>
+                <a href="{% url 'delete_event' event.id %}" class="btn btn-danger">Delete Event</a>
+                </div>
+                {% endif %}
+            {% endif %}
+          </div>
+        <br>
+      {% endfor %}
+
+    {% else %}
+        <h1> You have no search history...</h1>
+        
+    {% endif %}
+
+
+
+
+{% endblock%}
